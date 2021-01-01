@@ -89,8 +89,8 @@ void gdt_load() {
 
 
 // ###
-// IDT == Now le idt incoming soon tm idk if it gonna work or not but i guess it will
-// ###
+// IDT == Handling interupts and saying cpu where it is
+// // ###
 
 // We need to tell the stivale bootloader where we want our stack to be.
 // We are going to allocate our stack as an uninitialised array in .bss.
