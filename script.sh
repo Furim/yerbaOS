@@ -1,6 +1,6 @@
 !#/bin/bash
 
-rm -r iso_root/myos.elf
+rm -r iso_root/yerbaos.elf
 make clean
 make
 cp -v yerbaos.elf iso_root/ 
