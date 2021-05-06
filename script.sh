@@ -1,6 +1,7 @@
-!#/bin/bash
+#!/bin/sh
 
 rm -r iso_root/yerbaos.elf
+rm -r image.iso
 make clean
 make
 cp -v yerbaos.elf iso_root/ 
