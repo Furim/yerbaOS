@@ -1,7 +1,8 @@
 #include <stdint.h>
 #include <stddef.h>
 #include "stivale2.h"
- 
+
+
 // We need to tell the stivale bootloader where we want our stack to be.
 // We are going to allocate our stack as an uninitialised array in .bss.
 static uint8_t stack[4096];
@@ -90,11 +91,30 @@ void *stivale2_get_tag(struct stivale2_struct *stivale2_struct, uint64_t id) {
 }
  
 // The following will be our kernel's entry point.
+  // Let's get the terminal structure tag from the bootloader.
+void (*write)(const char *string, size_t length);
+
+void print(int val) {
+    char buf[30];
+    buf[29] = 0; // Null terminator
+    int written = 0;
+    do {
+        char c = '0' + (val % 10);
+        val /= 10;
+        buf[28 - written] = c;
+        written++;
+    } while (val != 0);
+    
+    char *string = buf + 29 - written;
+    write(string, written);
+}
+
+// The following will be our kernel's entry point.
 void _start(struct stivale2_struct *stivale2_struct) {
     // Let's get the terminal structure tag from the bootloader.
     struct stivale2_struct_tag_terminal *term_str_tag;
     term_str_tag = stivale2_get_tag(stivale2_struct, STIVALE2_STRUCT_TAG_TERMINAL_ID);
- 
+
     // Check if the tag was actually found.
     if (term_str_tag == NULL) {
         // It wasn't found, just hang...
@@ -102,21 +122,18 @@ void _start(struct stivale2_struct *stivale2_struct) {
             asm ("hlt");
         }
     }
- 
-    // Let's get the address of the terminal write function.
+
     void *term_write_ptr = (void *)term_str_tag->term_write;
- 
-    // Now, let's assign this pointer to a function pointer which
-    // matches the prototype described in the stivale2 specification for
-    // the stivale2_term_write function.
-    void (*term_write)(const char *string, size_t length) = term_write_ptr;
- 
-    // We should now be able to call the above function pointer to print out
-    // a simple "Hello World" to screen.
-    term_write("Welcome to YerbaOS ", 19);
- 
+
+    write = term_write_ptr;
+    
+    int a = 20;
+
+    write("Hello World\n", 12);
+    print(a); //thanks for help with porting print to the kernel 
     // We're done, just hang...
     for (;;) {
         asm ("hlt");
     }
 }
+
