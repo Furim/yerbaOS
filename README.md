@@ -1,6 +1,5 @@
 # yerbaOS
-
-in order to compile the kernel u must just run script
+In order to compile the Kernel, run this:
 (`./script.sh`) 
 
 
@@ -8,9 +7,9 @@ in order to compile the kernel u must just run script
 TODOs:
 
 - [ ] Vga textmode driver
-- [ ] Display how much memory user have
-- [ ] Display user info about hardware 
+- [ ] Display user's memory
+- [ ] Display Hardware Information
 - [ ] Terminal 
-- [x] Priting integers(thanks for help)
+- [x] Printing integers(thanks for help)
 - [ ] Make headers(instead one file)
 - [ ] Add libc
