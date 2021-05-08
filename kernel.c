@@ -112,6 +112,20 @@ void print(int val) {
 // The following will be our kernel's entry point.
 void _start(struct stivale2_struct *stivale2_struct) {
     // Let's get the terminal structure tag from the bootloader.
+    
+    // Memmap section
+    /*
+    struct stivale2_struct_tag_memmap *term_mem_tag;
+    term_mem_tag = stivale2_get_tag(stivale2_struct, STIVALE2_MMAP_RESERVED);
+*/
+   struct stivale2_struct_tag_memmap *mmap = stivale2_get_tag(stivale2_struct, STIVALE2_STRUCT_TAG_MEMMAP_ID);
+uint64_t length = 0;
+for (int i = 0; i < mmap->entries; i++) {
+  struct stivale2_mmap_entry *m = &mmap->memmap[i];
+  if (m->type == STIVALE2_MMAP_USABLE) length += m->length;
+}
+length /= (1024 * 1024);
+
     struct stivale2_struct_tag_terminal *term_str_tag;
     term_str_tag = stivale2_get_tag(stivale2_struct, STIVALE2_STRUCT_TAG_TERMINAL_ID);
 
@@ -122,18 +136,27 @@ void _start(struct stivale2_struct *stivale2_struct) {
             asm ("hlt");
         }
     }
+/*
+    if (mmap == NULL){
+        for (;;) {
+            asm ("hlt");
+        }
+    }*/
 
     void *term_write_ptr = (void *)term_str_tag->term_write;
 
-    write = term_write_ptr;
-    
-    int a = 20;
+   void *term_mem_ptr = (void *)mmap->entries;
 
-    write("Hello World\n", 12);
-    print(a); //thanks for help with porting print to the kernel 
+
+   write = term_write_ptr;
+   
+
+    uint64_t entries1(void *term_mem_ptr);
+
+    write("Welcome to YerbaOS\n", 19);
+    print(length); //thanks for help with porting print to the kernel 
     // We're done, just hang...
     for (;;) {
         asm ("hlt");
     }
 }
-
