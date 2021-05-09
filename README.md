@@ -1,9 +1,9 @@
 ![New Piskel(8)](https://user-images.githubusercontent.com/30505692/117569152-941ded80-b0c4-11eb-8677-2934bcbd1d48.png)
 # 🌿 YerbaOS
-To build the kernel `.iso` image u need qemu and xorriso(that's all) and then run `./script.sh`
+To build the kernel `.iso` image you need qemu and xorriso. After that run `./script.sh`
 
 # 🐙 Contribution:
-If u want to contribute to the kernel or other part of this repository u need to just open pull request 99%, times pull requests gonna be accepted if the code is good or there is something nice in pull request.
+If you want to contribute to the kernel or to other parts of this repository, you just need to open a pull request, they are mostly getting accepted.
 
 # 🦥 TODOs: 
 
@@ -20,11 +20,11 @@ If u want to contribute to the kernel or other part of this repository u need to
 
 IRC: `I dont have irc lol(maybe soon)`
 
-Discord: `Discord is shit so there not gonna be discord server` 
+Discord: `Discord is shit so there is not going to be a discord server` 
 
-Email: `remusmaluss@ctemplar.com / remusmaluss@gmail.com (maybe soon i will make my own email provider)`
+Email: `remusmaluss@ctemplar.com / remusmaluss@gmail.com` (maybe soon i will make my own email provider)
 
-# 🐋 Donations / Afiilate links
+# 🐋 Donations / Affiliate links
 XMR only: `42Q6S9RUxHy7NyfQB6uwmwbXK1Yvd3FzFCGz57a8Mh6J3xtLQNPvhPoKdVnKss8e61aj82Xy8Bejr9bb8iUHGiKh7hbJW4n `
 
 Vultr: `https://www.vultr.com/?ref=8867604-6G`(u get 100$ i get 25$)
