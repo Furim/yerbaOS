@@ -3,6 +3,10 @@
 #include "stivale2.h"
 
 
+// ###
+// GDT == basically tells your cpu what does a certain segment of memory do
+// ###
+
 // We need to tell the stivale bootloader where we want our stack to be.
 // We are going to allocate our stack as an uninitialised array in .bss.
 static uint8_t stack[4096];
@@ -94,6 +98,7 @@ void *stivale2_get_tag(struct stivale2_struct *stivale2_struct, uint64_t id) {
   // Let's get the terminal structure tag from the bootloader.
 void (*write)(const char *string, size_t length);
 
+/*
 void print(int val) {
     char buf[30];
     buf[29] = 0; // Null terminator
@@ -109,6 +114,22 @@ void print(int val) {
     write(string, written);
 }
 
+*/
+void print(int val) {
+    char buf[30];
+    buf[29] = 0; // Null terminator
+    int written = 0;
+    do {
+        char c = '0' + (val % 10);
+        val /= 10;
+        buf[28 - written] = c;
+        written++;
+        } while (val != 0);
+    
+    char *string = buf + 29 - written;
+    write(string, written);
+                    }
+
 // The following will be our kernel's entry point.
 void _start(struct stivale2_struct *stivale2_struct) {
     // Let's get the terminal structure tag from the bootloader.
@@ -119,12 +140,12 @@ void _start(struct stivale2_struct *stivale2_struct) {
     term_mem_tag = stivale2_get_tag(stivale2_struct, STIVALE2_MMAP_RESERVED);
 */
    struct stivale2_struct_tag_memmap *mmap = stivale2_get_tag(stivale2_struct, STIVALE2_STRUCT_TAG_MEMMAP_ID);
-uint64_t length = 0;
-for (int i = 0; i < mmap->entries; i++) {
-  struct stivale2_mmap_entry *m = &mmap->memmap[i];
-  if (m->type == STIVALE2_MMAP_USABLE) length += m->length;
-}
-length /= (1024 * 1024);
+    uint64_t length = 0;
+    for (int i = 0; i < mmap->entries; i++) {
+    struct stivale2_mmap_entry *m = &mmap->memmap[i];
+    if (m->type == STIVALE2_MMAP_USABLE) length += m->length;
+                                            }
+    length /= (1024 * 1024);
 
     struct stivale2_struct_tag_terminal *term_str_tag;
     term_str_tag = stivale2_get_tag(stivale2_struct, STIVALE2_STRUCT_TAG_TERMINAL_ID);
@@ -136,16 +157,16 @@ length /= (1024 * 1024);
             asm ("hlt");
         }
     }
-/*
+
     if (mmap == NULL){
         for (;;) {
             asm ("hlt");
         }
-    }*/
+    }
 
     void *term_write_ptr = (void *)term_str_tag->term_write;
 
-   void *term_mem_ptr = (void *)mmap->entries;
+   //void *term_mem_ptr = (void *)mmap->entries;
 
 
    write = term_write_ptr;
@@ -154,9 +175,9 @@ length /= (1024 * 1024);
     uint64_t entries1(void *term_mem_ptr);
 
     write("Welcome to YerbaOS\n", 19);
+    write("Mem: ", 4);
     print(length); //thanks for help with porting print to the kernel 
     // We're done, just hang...
     for (;;) {
         asm ("hlt");
     }
-}
