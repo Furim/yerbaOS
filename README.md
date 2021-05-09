@@ -22,7 +22,7 @@ IRC: `I dont have irc lol(maybe soon)`
 
 Discord: `Discord is shit so there is not going to be a discord server` 
 
-Email: `remusmaluss@ctemplar.com / remusmaluss@gmail.com (I will maybe create my own E-Mail Provider..)`
+Email: `remusmaluss@ctemplar.com / remusmaluss@gmail.com` (maybe soon i will make my own email provider)
 
 # 🐋 Donations / Affiliate links
 XMR only: `42Q6S9RUxHy7NyfQB6uwmwbXK1Yvd3FzFCGz57a8Mh6J3xtLQNPvhPoKdVnKss8e61aj82Xy8Bejr9bb8iUHGiKh7hbJW4n `
