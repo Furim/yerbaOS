@@ -7,14 +7,16 @@ If you want to contribute to the kernel or to other parts of this repository, yo
 
 # 🦥 TODOs: 
 
-- [ ] Vga textmode driver
-- [ ] Display user's memory
-- [ ] Display Hardware Information
-- [ ] Terminal 
-- [x] Printing integers(thanks for help)
 - [ ] Make headers(instead one file)
-- [ ] Add libc
-
+- [x] Booting
+- [x] Printing integers
+- [ ] GDT
+- [ ] IDT
+- [ ] PMM
+- [ ] Multitasking
+- [ ] Userspace
+- [ ] Syscalls
+- [ ] Porting userspace stuff(vim/shell/etc.)
 
 # 🐿️ Contact 
 
