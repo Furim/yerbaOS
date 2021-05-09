@@ -24,7 +24,7 @@ Discord: `Discord is shit so there is not going to be a discord server`
 
 Email: `remusmaluss@ctemplar.com / remusmaluss@gmail.com (I will maybe create my own E-Mail Provider..)`
 
-# 🐋 Donations / Afiilate links
+# 🐋 Donations / Affiliate links
 XMR only: `42Q6S9RUxHy7NyfQB6uwmwbXK1Yvd3FzFCGz57a8Mh6J3xtLQNPvhPoKdVnKss8e61aj82Xy8Bejr9bb8iUHGiKh7hbJW4n `
 
 Vultr: `https://www.vultr.com/?ref=8867604-6G`(u get 100$ i get 25$)
