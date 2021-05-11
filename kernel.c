@@ -178,7 +178,15 @@ void _start(struct stivale2_struct *stivale2_struct) {
         }
     }
 
+    
+   if (gdt_load == NULL){
+        for (;;) {
+            asm ("hlt");
+        }
+    }
+
     void *term_write_ptr = (void *)term_str_tag->term_write;
+
 
    
 
@@ -193,7 +201,7 @@ void _start(struct stivale2_struct *stivale2_struct) {
     print(mmap); // Memory map
     write("\nHuman readable memory map:\n", 27);
     print(length); // Formated memory map into GB aka human readable memory output 
-    // We're done, just hang...
+    gdt_load();// We're done, just hang...
     for (;;) {
         asm ("hlt");
     
