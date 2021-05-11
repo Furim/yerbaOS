@@ -10,7 +10,7 @@ If you want to contribute to the kernel or to other parts of this repository, yo
 - [ ] Make headers(instead one file)
 - [x] Booting
 - [x] Printing integers
-- [ ] GDT
+- [ ] GDT [Today]
 - [ ] IDT
 - [ ] PMM
 - [ ] Multitasking
