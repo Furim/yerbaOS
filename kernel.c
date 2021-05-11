@@ -4,7 +4,7 @@
 
 
 // ###
-// GDT == basically tells your cpu what does a certain segment of memory do
+// GDT == Telling your cpu what does a certain segment of memory do(there is no definition on the internet so saving this there lol)
 // ###
 
 // We need to tell the stivale bootloader where we want our stack to be.
@@ -98,23 +98,6 @@ void *stivale2_get_tag(struct stivale2_struct *stivale2_struct, uint64_t id) {
   // Let's get the terminal structure tag from the bootloader.
 void (*write)(const char *string, size_t length);
 
-/*
-void print(int val) {
-    char buf[30];
-    buf[29] = 0; // Null terminator
-    int written = 0;
-    do {
-        char c = '0' + (val % 10);
-        val /= 10;
-        buf[28 - written] = c;
-        written++;
-    } while (val != 0);
-    
-    char *string = buf + 29 - written;
-    write(string, written);
-}
-
-*/
 void print(int val) {
     char buf[30];
     buf[29] = 0; // Null terminator
@@ -166,7 +149,7 @@ void _start(struct stivale2_struct *stivale2_struct) {
 
     void *term_write_ptr = (void *)term_str_tag->term_write;
 
-   //void *term_mem_ptr = (void *)mmap->entries;
+   
 
 
    write = term_write_ptr;
