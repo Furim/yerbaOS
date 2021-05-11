@@ -158,8 +158,10 @@ void _start(struct stivale2_struct *stivale2_struct) {
     uint64_t entries1(void *term_mem_ptr);
 
     write("Welcome to YerbaOS\n", 19);
-    write("Memory map: ", 13);
-    print(mmap); //Memory map 
+    write("Memory map:\n ", 14);
+    print(mmap); // Memory map
+    write("\nHuman readable memory map:\n", 27);
+    print(length); // Formated memory map into GB aka human readable memory output 
     // We're done, just hang...
     for (;;) {
         asm ("hlt");
