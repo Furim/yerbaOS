@@ -3,6 +3,9 @@
 #include "stivale2.h"
 
 
+
+
+
 // ###
 // GDT == Telling your cpu what does a certain segment of memory do(there is no definition on the internet so saving this there lol)
 // ###
@@ -116,13 +119,10 @@ void print(int val) {
 // The following will be our kernel's entry point.
 void _start(struct stivale2_struct *stivale2_struct) {
     // Let's get the terminal structure tag from the bootloader.
+   
+
     
-    // Memmap section
-    /*
-    struct stivale2_struct_tag_memmap *term_mem_tag;
-    term_mem_tag = stivale2_get_tag(stivale2_struct, STIVALE2_MMAP_RESERVED);
-*/
-   struct stivale2_struct_tag_memmap *mmap = stivale2_get_tag(stivale2_struct, STIVALE2_STRUCT_TAG_MEMMAP_ID);
+    struct stivale2_struct_tag_memmap *mmap = stivale2_get_tag(stivale2_struct, STIVALE2_STRUCT_TAG_MEMMAP_ID);
     uint64_t length = 0;
     for (int i = 0; i < mmap->entries; i++) {
     struct stivale2_mmap_entry *m = &mmap->memmap[i];
@@ -152,14 +152,14 @@ void _start(struct stivale2_struct *stivale2_struct) {
    
 
 
-   write = term_write_ptr;
+    write = term_write_ptr;
    
 
     uint64_t entries1(void *term_mem_ptr);
 
     write("Welcome to YerbaOS\n", 19);
-    write("Mem: ", 4);
-    print(length); //thanks for help with porting print to the kernel 
+    write("Memory map: ", 13);
+    print(mmap); //Memory map 
     // We're done, just hang...
     for (;;) {
         asm ("hlt");
