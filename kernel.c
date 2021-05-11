@@ -27,12 +27,20 @@ static struct gdt_descriptor gdt[] = {
 };
 
 
+/*asm volatile(
+        "leaq 1f(%%rip), %%rax\n"
+        "pushq $0x08\n"
+        "pushq %%rax\n"
+        "lretq\n"
+        "1:\n"
+);*/
 
 
 void gdt_load() {
     struct gdt_pointer gdtr = {.size = sizeof(gdt) - 1, .addr = (u64)&gdt};
-    asm volatile("lgdt %0\n\t" : : "m"(gdtr));
-    asm volatile("push $0x08\npushq $0x1f\nlretq\n1:\n" : :);
+    asm volatile("cli");
+    asm volatile("lgdt %0\n\t": : "m"(gdtr));
+    asm volatile("leaq 1f(%%rip), %%rax\n" "pushq $0x08\n" "pushq %%rax\n" "lretq\n" "1:\n" : :);
     asm volatile("mov %0, %%ds\nmov %0, %%es\nmov %0, %%gs\nmov %0, %%fs\nmov %0, %%ss\n" : : "a"((u16)0x10));
 }
 
@@ -178,12 +186,12 @@ void _start(struct stivale2_struct *stivale2_struct) {
         }
     }
 
-    
-   if (gdt_load == NULL){
+/*
+   if (gdt == NULL){
         for (;;) {
             asm ("hlt");
         }
-    }
+    }*/
 
     void *term_write_ptr = (void *)term_str_tag->term_write;
 
@@ -201,7 +209,9 @@ void _start(struct stivale2_struct *stivale2_struct) {
     print(mmap); // Memory map
     write("\nHuman readable memory map:\n", 27);
     print(length); // Formated memory map into GB aka human readable memory output 
-    gdt_load();// We're done, just hang...
+    gdt_load();// We're done, just hang...    
+    
+
     for (;;) {
         asm ("hlt");
     
