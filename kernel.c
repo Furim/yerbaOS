@@ -26,10 +26,13 @@ static struct gdt_descriptor gdt[] = {
     {.access = access_flags, .granularity = 0} // kern ds
 };
 
+
+
+
 void gdt_load() {
     struct gdt_pointer gdtr = {.size = sizeof(gdt) - 1, .addr = (u64)&gdt};
     asm volatile("lgdt %0\n\t" : : "m"(gdtr));
-    asm volatile("push $0x08\npushq $1f\nlretq\n1:\n" : :);
+    asm volatile("push $0x08\npushq $0x1f\nlretq\n1:\n" : :);
     asm volatile("mov %0, %%ds\nmov %0, %%es\nmov %0, %%gs\nmov %0, %%fs\nmov %0, %%ss\n" : : "a"((u16)0x10));
 }
 
@@ -196,4 +199,5 @@ void _start(struct stivale2_struct *stivale2_struct) {
     
              }
 }
+
 
