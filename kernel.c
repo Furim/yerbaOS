@@ -38,10 +38,39 @@ static struct gdt_descriptor gdt[] = {
 
 void gdt_load() {
     struct gdt_pointer gdtr = {.size = sizeof(gdt) - 1, .addr = (u64)&gdt};
-    asm volatile("cli");
-    asm volatile("lgdt %0\n\t": : "m"(gdtr));
-    asm volatile("leaq 1f(%%rip), %%rax\n" "pushq $0x08\n" "pushq %%rax\n" "lretq\n" "1:\n" : :);
-    asm volatile("mov %0, %%ds\nmov %0, %%es\nmov %0, %%gs\nmov %0, %%fs\nmov %0, %%ss\n" : : "a"((u16)0x10));
+    
+    asm volatile(
+            
+            "cli"
+            
+                );
+    
+    asm volatile(
+
+
+            "lgdt %0\n\t"
+            
+            : : "m"(gdtr)
+                );
+    
+    asm volatile(
+            "leaq 1f(%%rip), %%rax\n"
+            
+            "pushq $0x08\n"
+            
+            "pushq %%rax\n"
+            
+            "lretq\n"
+            
+            "1:\n": :
+                );
+
+    asm volatile(
+            
+            "mov %0,%%ds\nmov %0,%%es\nmov %0,%%gs\nmov %0,%%fs\nmov %0,%%ss\n"
+            
+            : : "a"((u16)0x10)
+                );
 }
 
 
