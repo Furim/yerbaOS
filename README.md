@@ -11,7 +11,7 @@ If you want to contribute to the kernel or to other parts of this repository, yo
 - [x] Booting
 - [x] Printing integers
 - [x] GDT 
-- [ ] IDT
+- [ ] IDT ~ Expected in week 
 - [ ] PMM
 - [ ] Multitasking
 - [ ] Userspace
