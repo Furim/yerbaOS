@@ -27,13 +27,6 @@ static struct gdt_descriptor gdt[] = {
 };
 
 
-/*asm volatile(
-        "leaq 1f(%%rip), %%rax\n"
-        "pushq $0x08\n"
-        "pushq %%rax\n"
-        "lretq\n"
-        "1:\n"
-);*/
 
 
 void gdt_load() {
@@ -75,7 +68,7 @@ void gdt_load() {
 
 
 // ###
-// GDT == Telling your cpu what does a certain segment of memory do(there is no definition on the internet so saving this there lol)
+// PDT == Now le pdt incoming soon tm idk if it gonna work or not but i guess it will
 // ###
 
 // We need to tell the stivale bootloader where we want our stack to be.
@@ -215,12 +208,6 @@ void _start(struct stivale2_struct *stivale2_struct) {
         }
     }
 
-/*
-   if (gdt == NULL){
-        for (;;) {
-            asm ("hlt");
-        }
-    }*/
 
     void *term_write_ptr = (void *)term_str_tag->term_write;
 
@@ -231,7 +218,6 @@ void _start(struct stivale2_struct *stivale2_struct) {
     write = term_write_ptr;
    
 
-    uint64_t entries1(void *term_mem_ptr);
 
     write("Welcome to YerbaOS\n", 19);
     write("Memory map:\n ", 14);
