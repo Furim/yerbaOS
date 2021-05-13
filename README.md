@@ -36,4 +36,5 @@ Github sponsors: `soon™`
 # 🦦 Mirrors
 
 Codeberg: https://codeberg.org/Furim/yerbaOS
+
 Github: https://github.com/Furim/yerbaOS/
