@@ -1,4 +1,5 @@
 #!/bin/sh
+#script for building kernel and iso image
 
 rm -r iso_root/yerbaos.elf
 rm -r image.iso
