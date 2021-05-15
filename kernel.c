@@ -8,25 +8,46 @@ typedef uint32_t u32;
 typedef uint64_t u64;
 
 
-struct gdt_descriptor {
+struct gdt_descriptor { //defining gdt_descriptor
     u32 _0;
     u8 _1, access, granularity, _2;
 } __attribute__((packed));
 
-struct gdt_pointer {
+struct gdt_pointer { // pointer where all values are gonna be stored and pointed
     u16 size; u64 addr;
 } __attribute__((packed));
 
-const u8 access_flags = 0b10010010;  // Present, ring 0 only, readable cs and writable data
+const u8 access_flagsGDT = 0b10010010;  // Present, ring 0 only, readable cs and writable data
 const u8 gdt_is_code_segment = 1 << 3, gdt_longmode_cs = 1 << 5;
 
 static struct gdt_descriptor gdt[] = {
     {},
-    {.access = access_flags | gdt_is_code_segment, .granularity = gdt_longmode_cs},  // kern cs
-    {.access = access_flags, .granularity = 0} // kern ds
+    {.access = access_flagsGDT | gdt_is_code_segment, .granularity = gdt_longmode_cs},  // kern cs
+    {.access = access_flagsGDT, .granularity = 0} // kern ds
 };
 
 
+struct IDT_info {
+   uint16_t offset_1; // offset bits 0..15
+   uint16_t selector; // a code segment selector in GDT or LDT
+   uint8_t ist;       // bits 0..2 holds Interrupt Stack Table offset, rest of bits zero.
+   uint8_t type_attr; // type and attributes
+   uint16_t offset_2; // offset bits 16..31
+   uint32_t offset_3; // offset bits 32..63
+   uint32_t zero;     // reserved
+};
+
+void IDT_load(){
+    struct g;
+
+    asm volatile( 
+
+            "cli"
+                ); // cli stuff in assembler to execute the commands
+
+
+                
+                };
 
 
 void gdt_load() {
@@ -68,7 +89,7 @@ void gdt_load() {
 
 
 // ###
-// PDT == Now le pdt incoming soon tm idk if it gonna work or not but i guess it will
+// IDT == Now le idt incoming soon tm idk if it gonna work or not but i guess it will
 // ###
 
 // We need to tell the stivale bootloader where we want our stack to be.
