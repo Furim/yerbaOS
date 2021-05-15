@@ -2,6 +2,7 @@
 #include <stddef.h>
 #include "stivale2.h"
 
+
 typedef uint8_t u8;
 typedef uint16_t u16;
 typedef uint32_t u32;
@@ -65,40 +66,19 @@ void gdt_load() {
 }
 
 
-struct idt_descriptor { //defining gdt_descriptor
-    u32 _0;
-    u8 _1, access, granularity, _2;
-} __attribute__((packed));
 
+const u8 idt_ist = 0 >> 3;
 
-struct IDT_info {
-   u16 offset_1; //a offset bits 0..15
-   u16 selector; //a a code segment selector in GDT or LDT
-   u8 ist;       //a bits 0..2 holds Interrupt Stack Table offset, rest of bits zero.
-   u8 type_attr; //a type and attributes
-   u16 offset_2; //a offset bits 16..31
-   u32 offset_3; //a offset bits 32..63
-   u32 zero;     //a reserved
+struct idt_descriptor {
+     u16 offset_lowest = 0xFFFF; // MAX_UNSIGNED_SHORT
+     u16 .selector = 0x08, // must point to gdt_descriptor
+     u8 .ist = 0,
+     u8 .type_attr = 0x8e,
+     u16 .offset_medium = 0xFFFF,
+     u32 .offset_highest = 0xFFFFFFFF,
+     u32 .zero = 0,
 };
 
-
-
-struct idt_pointer { // pointer where all values are gonna be stored and pointed
-     u16 offset_1; u16 selector; u8 ist; u8 type_attr; u16 offset_2; u32 offset_3; u32 zero; u16 size; u64 addr;
-} __attribute__((packed));
-
-
-const u8 access_flagsIDT = 0b10010010; //binary represtation of the ring O
-const u8 idt_is_code_segment = 1 << 3, idt_longmode_cs = 1 << 5;
-
-
-        
-
-static struct idt_descriptor idt[] = {
-    {},
-    {.access = access_flagsIDT | idt_is_code_segment, .granularity = idt_longmode_cs},  // kern cs
-    {.access = access_flagsIDT, .granularity = 0} // kern ds
-};
 
 
 
@@ -106,42 +86,7 @@ static struct idt_descriptor idt[] = {
 
 
 void idt_load() {
-    struct idt_pointer idtr = {.size = sizeof(idt) - 1, .addr = (u64)&idt};
-    
-    asm volatile(
-            
-            "cli"
-            
-                );
-    
-    asm volatile(
-
-
-            "lgdt %0\n\t"
-            
-            : : "m"(idtr)
-                );
-    
-    asm volatile(
-            "leaq 1f(%%rip), %%rax\n"
-            
-            "pushq $0x08\n"
-            
-            "pushq %%rax\n"
-            
-            "lretq\n"
-            
-            "1:\n": :
-                );
-
-    asm volatile(
-            
-            "mov %0,%%ds\nmov %0,%%es\nmov %0,%%gs\nmov %0,%%fs\nmov %0,%%ss\n"
-            
-            : : "a"((u16)0x10)
-                );
-}
-
+    struct idt_descriptor idtr = { - 1, .addr = (u64)&gdt};
 
 
 // ###
