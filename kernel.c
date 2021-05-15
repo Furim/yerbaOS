@@ -70,23 +70,25 @@ void gdt_load() {
 const u8 idt_ist = 0 >> 3;
 
 struct idt_descriptor {
-     u16 offset_lowest = 0xFFFF; // MAX_UNSIGNED_SHORT
-     u16 .selector = 0x08, // must point to gdt_descriptor
-     u8 .ist = 0,
-     u8 .type_attr = 0x8e,
-     u16 .offset_medium = 0xFFFF,
-     u32 .offset_highest = 0xFFFFFFFF,
-     u32 .zero = 0,
-};
+     u16 offset_lowest; // MAX_UNSIGNED_SHORT
+     u16 selector; // must point to gdt_descriptor
+     u8 ist;
+     u8 type_attr;
+     u16 offset_medium;
+     u32 offset_highest;
+     u32 zero; 
+}
+idtdes;
 
+void idt_init(){
+    idtdes.offset_lowest = 0xFFFF;
+    idtdes.selector = 0x08;
+    idtdes.ist = 0;
+    idtdes.type_attr = 0x8e;
+    idtdes.offset_medium = 0xFFFF;
+    idtdes.offset_highest = 0xFFFFFFFF;
+}
 
-
-
-
-
-
-void idt_load() {
-    struct idt_descriptor idtr = { - 1, .addr = (u64)&gdt};
 
 
 // ###
@@ -247,7 +249,7 @@ void _start(struct stivale2_struct *stivale2_struct) {
     write("\nHuman readable memory map:\n", 27);
     print(length); // Formated memory map into GB aka human readable memory output 
     gdt_load();// We're done, just hang...    
-    idt_load(); 
+    idt_init(); 
 
     for (;;) {
         asm ("hlt");
