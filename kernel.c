@@ -1,7 +1,7 @@
 #include <stdint.h>
 #include <stddef.h>
 #include "stivale2.h"
-
+#include "defining.h"
 
 typedef uint8_t u8;
 typedef uint16_t u16;
@@ -18,14 +18,19 @@ struct gdt_pointer { // pointer where all values are gonna be stored and pointed
     u16 size; u64 addr;
 } __attribute__((packed));
 
+
+
 const u8 access_flagsGDT = 0b10010010;  // Present, ring 0 only, readable cs and writable data
 const u8 gdt_is_code_segment = 1 << 3, gdt_longmode_cs = 1 << 5;
+
+
 
 static struct gdt_descriptor gdt[] = {
     {},
     {.access = access_flagsGDT | gdt_is_code_segment, .granularity = gdt_longmode_cs},  // kern cs
     {.access = access_flagsGDT, .granularity = 0} // kern ds
 };
+
 
 
 void gdt_load() {
@@ -248,8 +253,13 @@ void _start(struct stivale2_struct *stivale2_struct) {
     print(mmap); // Memory map
     write("\nHuman readable memory map:\n", 27);
     print(length); // Formated memory map into GB aka human readable memory output 
+    print(vop);
     gdt_load();// We're done, just hang...    
-    idt_init(); 
+    idt_init();
+
+
+
+
 
     for (;;) {
         asm ("hlt");
