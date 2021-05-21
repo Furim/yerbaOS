@@ -7,7 +7,7 @@ If you want to contribute to the kernel or to other parts of this repository, yo
 
 # 🦥 TODOs: 
 
-- [ ] Make headers(instead one file) ~1 or 2 weeks
+- [x] Make headers(instead one file)
 - [x] Booting
 - [x] Printing integers
 - [x] GDT 
