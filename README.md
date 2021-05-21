@@ -38,3 +38,5 @@ Github sponsors: `soon™`
 Codeberg: https://codeberg.org/Furim/yerbaOS
 
 Github: https://github.com/Furim/yerbaOS/
+
+Notabug: soon™ 
