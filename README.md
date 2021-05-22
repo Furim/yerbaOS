@@ -7,6 +7,8 @@ If you want to contribute to the kernel or to other parts of this repository, yo
 
 # 🦥 TODOs: 
 
+
+- [ ] Syncing github repos and files and not doing it manually
 - [x] Make headers(instead one file)
 - [x] Booting
 - [x] Printing integers
