@@ -12,7 +12,7 @@ If you want to contribute to the kernel or to other parts of this repository, yo
 - [x] Printing integers
 - [x] GDT 
 - [x] IDT 
-- [ ] PMM
+- [ ] PMM expected in ~2 weeks
 - [ ] Multitasking
 - [ ] Userspace
 - [ ] Syscalls
