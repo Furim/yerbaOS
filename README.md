@@ -42,3 +42,5 @@ Codeberg: https://codeberg.org/Furim/yerbaOS
 Github: https://github.com/Furim/yerbaOS/
 
 Notabug: https://notabug.org/Furim/yerbaOS
+
+Bunkerfoundation: soon™
