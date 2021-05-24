@@ -3,13 +3,19 @@
 #include "stivale2.h"
 #include "defining.h"
 
-
 typedef uint8_t u8;
 typedef uint16_t u16;
 typedef uint32_t u32;
 typedef uint64_t u64;
 
 const u8 idt_ist = 0 >> 3;
+
+
+
+
+
+// PMM is =  specifically only allows to allocate and free physical memory
+
 
 
 // We need to tell the stivale bootloader where we want our stack to be.
